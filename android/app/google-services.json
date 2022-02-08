@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "82439140136",
-    "project_id": "ebucket-153bc",
-    "storage_bucket": "ebucket-153bc.appspot.com"
+    "project_number": "733784303307",
+    "project_id": "e-bucket-vyshnav",
+    "storage_bucket": "e-bucket-vyshnav.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:82439140136:android:3999bf86c0a7893009961d",
+        "mobilesdk_app_id": "1:733784303307:android:ff77c96eaade497c5f1d4e",
         "android_client_info": {
-          "package_name": "com.example.ebucket"
+          "package_name": "com.ralfiz.ebucket"
         }
       },
       "oauth_client": [
         {
-          "client_id": "82439140136-kcca60j5kv8litsveqnn3mcg2q8r75hm.apps.googleusercontent.com",
+          "client_id": "733784303307-8jcmd36pt8q7otsm61198li9kggt678q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBb597HboezOZwSxVAO9viEplcMUciOP80"
+          "current_key": "AIzaSyBcnIqt6kNv3_LGyNnHh7GAsVXki-wj4DY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "82439140136-kcca60j5kv8litsveqnn3mcg2q8r75hm.apps.googleusercontent.com",
+              "client_id": "733784303307-8jcmd36pt8q7otsm61198li9kggt678q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
