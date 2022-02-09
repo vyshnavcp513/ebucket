@@ -47,11 +47,11 @@ class _CategoryFormState extends State<CategoryForm> {
           child: Container(
             height: double.infinity,
             decoration: BoxDecoration(
-                color: Colors.grey.shade200.withOpacity(0.5),
+                // color: Colors.grey.shade200.withOpacity(0.5),
               image: DecorationImage(
 
                 fit: BoxFit.cover,
-                image: AssetImage('images/backimage.jpg')
+                image: AssetImage('images/backimage1.5.png')
               )
             ),
             child: Container(
@@ -86,9 +86,24 @@ class _CategoryFormState extends State<CategoryForm> {
                           controller: categoryinputcontroller,
                           enabled: false,
                           decoration: InputDecoration(
+                            enabledBorder:OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
 
-                            labelText: 'category',
-                            prefixIcon: Icon(Icons.category),
+                              borderRadius: BorderRadius.circular(20),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+
+                            fillColor: Colors.white70,
+                            filled: true,
+                            labelText: 'Category',
+                            labelStyle: TextStyle(color: Colors.black87),
+                            prefixIcon: Icon(Icons.category,color: Colors.black,),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
                           ),
@@ -132,12 +147,29 @@ class _CategoryFormState extends State<CategoryForm> {
                         TextFormField(
                           controller: priceinputcontroller,
                           keyboardType: TextInputType.number,
+
                           decoration: InputDecoration(
+                            enabledBorder:OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+
+                            fillColor: Colors.white70,
+                            filled: true,
                             hintText: 'Price in Rupees',
                             labelText: 'Price',
-                            prefixIcon: Icon(Icons.attach_money),
+                            labelStyle: TextStyle(color: Colors.black87),
+                            prefixIcon: Icon(Icons.attach_money,color: Colors.black,),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30)),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                           validator: (value) {
                             if (value!.length < 1)
@@ -150,11 +182,28 @@ class _CategoryFormState extends State<CategoryForm> {
                         TextFormField(
                           controller: locationinputcontroller,
                           decoration: InputDecoration(
+                            enabledBorder:OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+
+                            fillColor: Colors.white70,
+                            filled: true,
                             labelText: 'Location',
-                            prefixIcon: Icon(Icons.add_location),
+                            labelStyle: TextStyle(color: Colors.black87),
+                            prefixIcon: Icon(Icons.add_location,color: Colors.black,),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30)),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
+
                         ),
                         SizedBox(
                           height: 20,
@@ -164,10 +213,26 @@ class _CategoryFormState extends State<CategoryForm> {
                           keyboardType: TextInputType.number,
                           maxLength: 10,
                           decoration: InputDecoration(
+                            enabledBorder:OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),
+
+                            fillColor: Colors.white70,
+                            filled: true,
                             labelText: 'Phone no.',
-                            prefixIcon: Icon(Icons.add_call),
+                            labelStyle: TextStyle(color: Colors.black87),
+                            prefixIcon: Icon(Icons.add_call,color: Colors.black,),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30)),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                           validator: (value) {
                             if (value!.length != 10)
