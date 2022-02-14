@@ -122,6 +122,8 @@ class _UserHomeState extends State<UserHome> {
   }
 
   _cards(String title,IconData icons,Color color1,Color color2,var index) {
+    Size size = MediaQuery.of(context).size;
+    var cardwidth=size.width/2.5;
     return GestureDetector(
       onTap: (){
         if(index==1){
@@ -152,14 +154,14 @@ class _UserHomeState extends State<UserHome> {
       child: Padding(
         padding: const EdgeInsets.only(left: 20, bottom: 20),
         child: Card(
-          color: Colors.green,
+          color: Colors.white70,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           elevation: 5.0,
           child: Container(
             decoration: BoxDecoration(
-              color:   selected==0? Colors.black:Colors.green,
+              color:   selected==0? Colors.green:Colors.white70,
                 borderRadius: BorderRadius.only(bottomRight: Radius.circular(50),bottomLeft: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                 // gradient: LinearGradient(
                 //     begin: Alignment.topCenter,
@@ -167,7 +169,7 @@ class _UserHomeState extends State<UserHome> {
                 //     colors: [color1, color2])
        ),
             height: 150,
-            width: 150,
+            width: cardwidth,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
