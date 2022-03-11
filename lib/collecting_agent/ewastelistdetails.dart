@@ -31,30 +31,55 @@ class EwasteListDetails extends StatefulWidget {
 }
 
 class _EwasteListDetailsState extends State<EwasteListDetails> {
+  // var estatus=true;
   var aid;
   var status;
+  var auctioncheck;
   var oldaid;
   var _auctionkey = new GlobalKey<FormState>();
   TextEditingController auctionpriceinputcontroller =
       new TextEditingController();
+
+  // var snapshot;
+  var documents;
 
   @override
   void initState() {
     aid = DateTime.now().toString();
     // TODO: implement initState
     super.initState();
+    FirebaseFirestore.instance
+        .collection('ewastes')
+        .doc(widget.eid)
+        .get()
+        .then((value) {
+      if (value.data()![widget.agentid] != null) {
+        auctioncheck = true;
+      }
+      oldaid = value.data()![widget.agentid];
+    });
+    // snapshot=FirebaseFirestore.instance.collection('auctions').get();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showalert();
-        },
-        child: Icon(
-          Icons.add,
-          size: 40,
+      floatingActionButton: Visibility(
+        visible: true,
+        child: FloatingActionButton(
+          onPressed: () {
+            print(auctioncheck);
+            if (auctioncheck == true) {
+              print(oldaid);
+              showalertupdate();
+            } else {
+              showalert();
+            }
+          },
+          child: Icon(
+            Icons.add,
+            size: 40,
+          ),
         ),
       ),
       appBar: AppBar(
@@ -157,7 +182,8 @@ class _EwasteListDetailsState extends State<EwasteListDetails> {
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
-                        .collection('auctions').where('eid', isEqualTo: widget.eid)
+                        .collection('auctions')
+                        .where('eid', isEqualTo: widget.eid)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -187,15 +213,22 @@ class _EwasteListDetailsState extends State<EwasteListDetails> {
                                       subtitle: Text(snapshot.data!.docs[index]
                                           ['agentprice']),
                                       trailing: IconButton(
-                                          icon: snapshot.data!.docs[index]['agentid']==widget.agentid ? Icon(Icons.edit, color: Colors.blue) : Icon(Icons.call, color: Color(0xff009e60)),
+                                          icon: snapshot.data!.docs[index]
+                                                      ['agentid'] ==
+                                                  widget.agentid
+                                              ? Icon(Icons.edit,
+                                                  color: Colors.blue)
+                                              : Icon(Icons.call,
+                                                  color: Color(0xff009e60)),
                                           onPressed: () {
                                             if (snapshot.data!.docs[index]
-                                            ['status'] !=
-                                                0 &&
+                                                        ['status'] !=
+                                                    0 &&
                                                 snapshot.data!.docs[index]
-                                                ['agentid'] ==
+                                                        ['agentid'] ==
                                                     widget.agentid) {
-                                              oldaid=snapshot.data!.docs[index]['aid'];
+                                              oldaid = snapshot
+                                                  .data!.docs[index]['aid'];
                                               showalertupdate();
                                             }
                                           }),
@@ -206,7 +239,8 @@ class _EwasteListDetailsState extends State<EwasteListDetails> {
                                             snapshot.data!.docs[index]
                                                     ['agentid'] ==
                                                 widget.agentid) {
-                                          oldaid=snapshot.data!.docs[index]['aid'];
+                                          oldaid =
+                                              snapshot.data!.docs[index]['aid'];
                                           showalertupdate();
                                         }
                                       },
@@ -266,7 +300,7 @@ class _EwasteListDetailsState extends State<EwasteListDetails> {
                                     .collection('auctions')
                                     .doc(aid)
                                     .set({
-                                  'eid' : widget.eid,
+                                  'eid': widget.eid,
                                   'aid': aid,
                                   'agentprice':
                                       auctionpriceinputcontroller.text,
@@ -276,6 +310,12 @@ class _EwasteListDetailsState extends State<EwasteListDetails> {
                                   'date': DateTime.now().toString()
                                 }).then((value) {
                                   showsnackbar('Auction Submitted');
+                                  FirebaseFirestore.instance
+                                      .collection('ewastes')
+                                      .doc(widget.eid)
+                                      .update({
+                                    widget.agentid: aid,
+                                  });
                                   Navigator.pop(context);
                                 });
                               }

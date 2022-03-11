@@ -1,5 +1,5 @@
-
 import 'package:ebucket/common/loginpage.dart';
+import 'package:ebucket/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
-      home: LoginPage(),
+      routes: {'/login': (BuildContext context) => LoginPage()},
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

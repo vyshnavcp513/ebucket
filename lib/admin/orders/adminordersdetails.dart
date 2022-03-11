@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,14 +16,26 @@ class AdminOrdersDetails extends StatefulWidget {
   var oid;
   var apid;
 
-  AdminOrdersDetails({Key? key,this.price,this.product,this.url,this.name,this.location,this.address,this.phone,this.email,this.apid,this.date,this.oid}) : super(key: key);
+  AdminOrdersDetails(
+      {Key? key,
+      this.price,
+      this.product,
+      this.url,
+      this.name,
+      this.location,
+      this.address,
+      this.phone,
+      this.email,
+      this.apid,
+      this.date,
+      this.oid})
+      : super(key: key);
 
   @override
   _AdminOrdersDetailsState createState() => _AdminOrdersDetailsState();
 }
 
 class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,17 +48,15 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('orders').snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection('orders').snapshots(),
               builder: (context, snapshot) {
-                if(!snapshot.hasData){
+                if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
-                }
-                else if(snapshot.hasData&&snapshot.data!.docs.length==0)
-                {
+                } else if (snapshot.hasData &&
+                    snapshot.data!.docs.length == 0) {
                   return Center(child: Text('no orders found'));
-
-                }
-                else
+                } else
                   return ListView.builder(
                       itemCount: 1,
                       itemBuilder: (context, index) {
@@ -54,7 +65,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(widget.product,
+                            Text(
+                              widget.product,
                               style: GoogleFonts.lato(
                                 fontSize: 25,
                               ),
@@ -62,12 +74,15 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
 
                             widget.url == null
                                 ? Image.asset(
-                              "images/logo.png",
-                              height: 100,
-                              width: 100,
-                            )
-                                : Image.network(
-                                widget.url
+                                    "images/logo.png",
+                                    height: 100,
+                                    width: 100,
+                                  )
+                                : CachedNetworkImage(
+                              imageUrl: widget.url,
+                              errorWidget: (context, url, error) =>
+                                  Image.asset('images/oos.png',
+                                      fit: BoxFit.fitWidth),
                             ),
 
                             SizedBox(
@@ -78,7 +93,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Price: '+widget.price+'Rs',
+                                Text(
+                                  'Price: ' + widget.price + 'Rs',
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                   ),
@@ -93,7 +109,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('User: '+widget.name,
+                                Text(
+                                  'User: ' + widget.name,
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                   ),
@@ -108,7 +125,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Location: '+widget.location,
+                                Text(
+                                  'Location: ' + widget.location,
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                   ),
@@ -123,7 +141,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Address: '+widget.address,
+                                Text(
+                                  'Address: ' + widget.address,
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                   ),
@@ -138,7 +157,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Email: '+widget.email,
+                                Text(
+                                  'Email: ' + widget.email,
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                   ),
@@ -153,7 +173,8 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Phone: '+widget.phone,
+                                Text(
+                                  'Phone: ' + widget.phone,
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                   ),
@@ -218,10 +239,13 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
 
                               child: ElevatedButton.icon(
                                   onPressed: () {
-                                    FirebaseFirestore.instance.collection('orders').doc(snapshot.data!.docs[index]['oid']).delete().then((value) {
+                                    FirebaseFirestore.instance
+                                        .collection('orders')
+                                        .doc(snapshot.data!.docs[index]['oid'])
+                                        .delete()
+                                        .then((value) {
                                       showsnackbar('Order Cancelled');
                                       Navigator.pop(context);
-
                                     });
                                   },
                                   icon: Icon(Icons.remove_shopping_cart),
@@ -230,18 +254,18 @@ class _AdminOrdersDetailsState extends State<AdminOrdersDetails> {
                           ],
                         );
                       });
-              }
-          ),
+              }),
         ),
       ),
     );
   }
-  showsnackbar(String msg){
-    final snackBar = SnackBar( content: Text(msg),backgroundColor: Colors.blue,);
 
-
-    ScaffoldMessenger.of(context).showSnackBar(
-        snackBar
+  showsnackbar(String msg) {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      backgroundColor: Colors.blue,
     );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
